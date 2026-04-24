@@ -10,7 +10,8 @@ ARG CALCOM_TELEMETRY_DISABLED
 ARG DATABASE_URL
 ARG NEXTAUTH_SECRET=secret
 ARG CALENDSO_ENCRYPTION_KEY=secret
-ARG MAX_OLD_SPACE_SIZE=6144
+# Monorepo Next.js + embed builds: leave headroom to avoid OOM in constrained CI; override per environment if needed
+ARG MAX_OLD_SPACE_SIZE=8192
 ARG NEXT_PUBLIC_API_V2_URL
 ARG CSP_POLICY
 
