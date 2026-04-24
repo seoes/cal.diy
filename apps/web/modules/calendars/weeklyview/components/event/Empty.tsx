@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { shallow } from "zustand/shallow";
 
 import type { Dayjs } from "@calcom/dayjs";
@@ -17,7 +17,7 @@ type EmptyCellProps = GridCellToDateProps & {
   topOffsetMinutes?: number;
 };
 
-export function EmptyCell(props: EmptyCellProps) {
+function EmptyCellComponent(props: EmptyCellProps) {
   const cellToDate = gridCellToDateTime({
     day: props.day,
     gridCellIdx: props.gridCellIdx,
@@ -32,6 +32,8 @@ export function EmptyCell(props: EmptyCellProps) {
   return <Cell topOffsetMinutes={minutesFromStart} timeSlot={dayjs(cellToDate).tz(props.timezone)} />;
 }
 
+export const EmptyCell = memo(EmptyCellComponent);
+
 type AvailableCellProps = {
   timezone: string;
   availableSlots: CalendarAvailableTimeslots;
@@ -39,7 +41,12 @@ type AvailableCellProps = {
   startHour: GridCellToDateProps["startHour"];
 };
 
-export function AvailableCellsForDay({ timezone, availableSlots, day, startHour }: AvailableCellProps) {
+function AvailableCellsForDayComponent({
+  timezone,
+  availableSlots,
+  day,
+  startHour,
+}: AvailableCellProps) {
   const date = dayjs(day);
   const dateFormatted = date.format("YYYY-MM-DD");
   const slotsForToday = availableSlots && availableSlots[dateFormatted];
@@ -130,6 +137,8 @@ export function AvailableCellsForDay({ timezone, availableSlots, day, startHour 
     </>
   );
 }
+
+export const AvailableCellsForDay = memo(AvailableCellsForDayComponent);
 
 type CellProps = {
   isDisabled?: boolean;
