@@ -54,6 +54,10 @@ Cal.diy is **100% MIT-licensed** with no proprietary "Enterprise Edition" featur
 
 > **Note:** Cal.diy is a self-hosted project. There is no hosted/managed version. You run it on your own infrastructure.
 
+### Internal integration rollups (experimental)
+
+Some forks add short-lived "rollup" API routes and library helpers for integration tests or staging cutovers. These are not part of the supported public API surface, may ship with verbose logging, and can be removed without notice. Self-hosters should not depend on `app/api/internal/*` in production.
+
 ### Built With
 
 - [Next.js](https://nextjs.org/)

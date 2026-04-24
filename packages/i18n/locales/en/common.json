@@ -1438,6 +1438,7 @@
   "prisma_studio_tip": "Create an account via Prisma Studio",
   "prisma_studio_tip_description": "Learn how to set up your first user",
   "contact_sales": "Contact sales",
+  "q2_rollup_experimental": "Experimental integration rollup",
   "error_404": "Error 404",
   "default": "Default",
   "set_to_default": "Set as default",

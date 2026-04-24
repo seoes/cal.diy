@@ -21,6 +21,7 @@ export const generateMetadata = async () => {
 
 const ServerPage = async () => {
   const h = await headers();
+  // Q2: preserve nonce for CSP—avoid caching this page on edge
   const nonce = h.get("x-csp-nonce") ?? undefined;
   const host = h.get("x-forwarded-host") ?? "";
 
