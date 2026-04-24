@@ -1,7 +1,8 @@
 import type { DateRange } from "@calcom/features/schedules/lib/date-ranges";
+import { isCurrentRangeOverlappingNext, sortDateRangesByStart } from "./mergeOverlappingDateRanges.utils";
 
 export function mergeOverlappingDateRanges(dateRanges: DateRange[]) {
-  dateRanges.sort((a, b) => a.start.valueOf() - b.start.valueOf());
+  sortDateRangesByStart(dateRanges);
 
   const mergedDateRanges: DateRange[] = [];
 
@@ -26,11 +27,4 @@ export function mergeOverlappingDateRanges(dateRanges: DateRange[]) {
   mergedDateRanges.push(currentRange);
 
   return mergedDateRanges;
-}
-
-function isCurrentRangeOverlappingNext(currentRange: DateRange, nextRange: DateRange): boolean {
-  return (
-    currentRange.start.valueOf() <= nextRange.start.valueOf() &&
-    currentRange.end.valueOf() > nextRange.start.valueOf()
-  );
 }
