@@ -1,6 +1,7 @@
 import authedProcedure from "../../../../procedures/authedProcedure";
 import { router } from "../../../../trpc";
 import { ZBulkUpdateToDefaultAvailabilityInputSchema } from "./bulkUpdateDefaultAvailability.schema";
+import { ZCopyTemplateToSchedulesInputSchema } from "./copyTemplateToSchedules.schema";
 import { ZCreateInputSchema } from "./create.schema";
 import { ZDeleteInputSchema } from "./delete.schema";
 import { ZScheduleDuplicateSchema } from "./duplicate.schema";
@@ -20,6 +21,7 @@ type ScheduleRouterHandlerCache = {
   getAllSchedulesByUserId?: typeof import("./getAllSchedulesByUserId.handler").getAllSchedulesByUserIdHandler;
   getScheduleByEventSlug?: typeof import("./getScheduleByEventTypeSlug.handler").getScheduleByEventSlugHandler;
   bulkUpdateToDefaultAvailability?: typeof import("./bulkUpdateDefaultAvailability.handler").bulkUpdateToDefaultAvailabilityHandler;
+  copyTemplateToSchedules?: typeof import("./copyTemplateToSchedules.handler").copyTemplateToSchedulesHandler;
 };
 
 export const scheduleRouter = router({
@@ -105,5 +107,12 @@ export const scheduleRouter = router({
         ctx,
         input,
       });
+    }),
+  copyTemplateToSchedules: authedProcedure
+    .input(ZCopyTemplateToSchedulesInputSchema)
+    .mutation(async ({ ctx, input }) => {
+      const { copyTemplateToSchedulesHandler } = await import("./copyTemplateToSchedules.handler");
+
+      return copyTemplateToSchedulesHandler({ ctx, input });
     }),
 });
