@@ -7,7 +7,6 @@
 | Base `main` SHA (branch point) | `75bd1b348944a0e4d647a0b5e4991845ece0089c` |
 | Remote | `https://github.com/seoes/cal.diy` |
 | Date | 2026-04-24 |
-| `report.md` on `main` | `6db1cb4959` (latest) |
 
 ## Branch summary (tip commits)
 
