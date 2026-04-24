@@ -28,6 +28,7 @@ import {
 import type { BookingListingStatus, BookingsGetOutput, RowData } from "../types";
 import { BookingDetailsSheet } from "./BookingDetailsSheet";
 import { BookingList } from "./BookingList";
+import { TeamBookingSnapshotRow } from "./TeamBookingSnapshotRow";
 import { ViewToggleButton } from "./ViewToggleButton";
 
 interface FilterButtonProps {
@@ -159,6 +160,7 @@ function BookingListInner({
 
   return (
     <>
+      <TeamBookingSnapshotRow className="mb-2" />
       <div className="flex flex-wrap items-center gap-2">
         {/* Desktop: full width on first row, Mobile: full width on first row with horizontal scroll */}
         <div className="w-full md:w-auto">
