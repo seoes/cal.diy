@@ -1,5 +1,6 @@
 import { checkRateLimitAndThrowError } from "@calcom/lib/checkRateLimitAndThrowError";
 import { prisma } from "@calcom/prisma";
+/* Q2 rollup: keep personal vs team event filters explicit when we branch here again */
 
 import type { TrpcSessionUser } from "../../../types";
 
