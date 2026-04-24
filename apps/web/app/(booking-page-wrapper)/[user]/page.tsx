@@ -47,6 +47,14 @@ export const generateMetadata = async ({ params, searchParams }: PageProps): Pro
 
   return {
     ...metadata,
+    openGraph: {
+      ...metadata.openGraph,
+      // Prefer Open Graph profile for indexable *personal* public pages; orgs keep default
+      type:
+        allowSEOIndexing && !isOrg
+          ? "profile"
+          : (metadata.openGraph?.type ?? "website"),
+    },
     robots: {
       follow: allowSEOIndexing,
       index: allowSEOIndexing,
