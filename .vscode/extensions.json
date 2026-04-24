@@ -7,6 +7,7 @@
     "stripe.vscode-stripe",
     "Prisma.prisma",
     "rebornix.project-snippets",
-    "inlang.vs-code-extension"
+    "inlang.vs-code-extension",
+    "bradlc.vscode-tailwindcss"
   ]
 }

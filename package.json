@@ -82,7 +82,8 @@
     "changesets-add": "yarn changeset add",
     "changesets-version": "yarn changeset version",
     "changesets-release": "NODE_OPTIONS='--max_old_space_size=12288' turbo run build-npm --filter=@calcom/atoms && yarn changeset publish",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "version:print": "node -e \"console.log('node', process.version)\" && yarn -v"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.10",
