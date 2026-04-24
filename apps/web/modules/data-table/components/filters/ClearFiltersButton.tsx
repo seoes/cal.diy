@@ -17,8 +17,7 @@ export const ClearFiltersButton = ({ exclude }: { exclude?: string[] }) => {
       <Button
         color="minimal"
         data-testid="clear-filters-button"
-        target="_blank"
-        rel="noreferrer"
+        type="button"
         StartIcon="x"
         onClick={() => clearAll(exclude)}>
         {t("clear")}
