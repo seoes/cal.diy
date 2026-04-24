@@ -213,3 +213,35 @@ Large PRs are difficult to review and more prone to errors. We strongly encourag
 - Fill out the PR template accordingly.
 - Review the [App Contribution Guidelines](./packages/app-store/CONTRIBUTING.md) when building integrations.
 - Lastly, make sure to keep your branches updated (e.g., click the `Update branch` button on the GitHub PR page).
+
+## Self-hosting troubleshooting (operator checklist)
+
+The following is a **high-level** checklist for self-hosted Cal.diy deployments. It is not a substitute for reading the main [README](./README.md) and `.env.example` — but it is the place we send operators who hit common walls.
+
+### Before you file an issue
+
+1. **Confirm the exact version** of Cal.diy (git SHA or image digest) and whether you are using Docker, bare metal, or a PaaS.
+2. **Capture logs** for the component that failed (web container, database, mailer, build step). A single line of “it doesn’t work” is not enough to reproduce.
+3. **Reproduce in isolation**: try with a **fresh** database and **minimal** `.env` (only the variables required in `.env.example` for your use case) before adding OAuth, SAML, and custom domains.
+
+### Database and migrations
+
+- If the app **starts** but you see 500s on any page touching bookings or settings, the usual suspect is a **stale** or **partially applied** migration. Run the documented `db-deploy` (or your packaging equivalent) against the same `DATABASE_URL` the app uses.
+- **Never** point a production app at a copy of a database and run destructive commands without a backup. The schema expects forward-only Prisma migrations to match the code revision you deployed.
+
+### Outbound email and calendar
+
+- “Calendar connection failed” or “Verification email not received” is often **outbound** SMTP, DNS, or port blocking, not a code bug. Verify that your host allows outbound 587/465 to your mail provider, that SPF/DKIM are configured if you use your own domain, and that you have not set conflicting `EMAIL_FROM` and provider credentials.
+- For calendar OAuth redirect URIs, the **public** URL the browser sees (scheme + host + path) must match what you register at Google or Microsoft, including `www` vs apex.
+
+### Build-time out-of-memory (Node / Next)
+
+- The Docker build runs a **large** TypeScript and Next.js build. If your CI or builder runs in a 4 GB VM, expect intermittent failures. Increase container memory, set `MAX_OLD_SPACE_SIZE` where your Dockerfile or build service supports it, and avoid building concurrent apps on the same node.
+
+### Reverse proxy, TLS, and websockets (if you terminate TLS in front of the app)
+
+- Ensure the proxy passes **X-Forwarded-Proto** and **X-Forwarded-Host** correctly so Next and NextAuth can build absolute URLs and secure cookies. Misconfigured headers often look like “redirect loop to login” or “CSRF / session not persisted.”
+
+### When to escalate
+
+Escalate to maintainers (issue) when you have **repro steps**, **version**, and **relevant** logs — especially for suspected security or data-integrity issues. For deployment-specific help (K8s operators, your internal LDAP), a community **Discussion** is often a better first stop than a product bug.
