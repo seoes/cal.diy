@@ -432,7 +432,7 @@ export const Components: Record<FieldType, Component> = {
         }
 
         return label.search(/^https?:\/\//) !== -1 ? (
-          <a href={label} target="_blank">
+          <a href={label} rel="noopener noreferrer" target="_blank">
             <span className="underline">{label}</span>
           </a>
         ) : (
