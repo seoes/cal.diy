@@ -10,6 +10,7 @@ import { trpc } from "@calcom/trpc/react";
 import useMeQuery from "@calcom/trpc/react/hooks/useMeQuery";
 import { EmptyScreen } from "@calcom/ui/components/empty-screen";
 import { showToast } from "@calcom/ui/components/toast";
+import { ScheduleTemplateBulkApply } from "@calcom/web/modules/availability/ScheduleTemplateBulkApply";
 import { NewScheduleButton } from "@calcom/web/modules/schedules/components/NewScheduleButton";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { revalidateAvailabilityList } from "app/(use-page-wrapper)/(main-nav)/availability/actions";
@@ -154,6 +155,9 @@ export function AvailabilityList({ availabilities }: AvailabilityListProps) {
               ))}
             </ul>
           </div>
+          <ScheduleTemplateBulkApply
+            schedules={availabilities.schedules.map((s) => ({ id: s.id, name: s.name }))}
+          />
           <div className="text-default mb-16 mt-4 block text-center text-sm">
             {t("temporarily_out_of_office")}{" "}
             <Link href="settings/my-account/out-of-office" className="underline">
